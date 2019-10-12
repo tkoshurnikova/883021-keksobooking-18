@@ -14,7 +14,6 @@ var GUESTS_MIN = 1;
 var GUESTS_MAX = 10;
 var CHECKIN_TIME = ['12:00', '13:00', '14:00'];
 var CHECKOUT_TIME = ['12:00', '13:00', '14:00'];
-var DESCRIPTION = 'описание';
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
@@ -46,6 +45,11 @@ var renderTitle = function (i) {
   return title;
 };
 
+var renderDescription = function (i) {
+  var description = 'Описание ' + (i + 1);
+  return description;
+};
+
 var getLocation = function () {
   var location = {};
   location.x = getRandomNumber(LOCATION_X_MIN, BLOCK_WIDTH);
@@ -66,6 +70,7 @@ var getRandomArray = function (arr) {
 var renderMock = function () {
   var mock = [];
   for (var i = 0; i <= MOCK_LENGTH - 1; i++) {
+    var location = getLocation();
     var mockElement = {
       'author': {
         'avatar': renderAvatar(i)
@@ -73,7 +78,7 @@ var renderMock = function () {
 
       'offer': {
         'title': renderTitle(i),
-        'address': getLocation().x + ', ' + getLocation().y,
+        'address': location.x + ', ' + location.y,
         'price': getRandomNumber(MIN_PRICE, MAX_PRICE),
         'type': getRandomElement(LIVING_TYPES),
         'rooms': getRandomNumber(ROOMS_MIN, ROOMS_MAX),
@@ -81,13 +86,13 @@ var renderMock = function () {
         'checkin': getRandomElement(CHECKIN_TIME),
         'checkout': getRandomElement(CHECKOUT_TIME),
         'features': getRandomArray(FEATURES),
-        'description': DESCRIPTION,
+        'description': renderDescription(i),
         'photos': getRandomArray(PHOTOS)
       },
 
       'location': {
-        'x': getLocation().x,
-        'y': getLocation().y
+        'x': location.x,
+        'y': location.y
       }
     };
     mock.push(mockElement);
@@ -101,8 +106,8 @@ mapBlock.classList.remove('map--faded');
 
 var renderPin = function (offer) {
   var pinElement = pinTemplate.cloneNode(true);
-  pinElement.style.left = (offer.location.x + PIN_SIZE.width / 2) + 'px';
-  pinElement.style.top = (offer.location.y + PIN_SIZE.height) + 'px';
+  pinElement.style.left = (offer.location.x - PIN_SIZE.width / 2) + 'px';
+  pinElement.style.top = (offer.location.y - PIN_SIZE.height) + 'px';
   pinElement.querySelector('img').src = offer.author.avatar;
   pinElement.querySelector('img').alt = offer.offer.title;
   return pinElement;
