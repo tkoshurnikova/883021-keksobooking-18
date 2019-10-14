@@ -103,8 +103,6 @@ var renderMock = function () {
 
 var mockArray = renderMock();
 
-mapBlock.classList.remove('map--faded');
-
 var renderPin = function (offer) {
   var pinElement = pinTemplate.cloneNode(true);
   pinElement.style.left = (offer.location.x - PIN_SIZE.width / 2) + 'px';
@@ -121,8 +119,6 @@ var renderPinsList = function (mock) {
   }
   pinsList.appendChild(fragment);
 };
-
-renderPinsList(mockArray);
 
 var cardTemplate = document.querySelector('#card')
     .content
@@ -158,4 +154,33 @@ var renderCard = function (offer) {
   return cardElement;
 };
 
-document.querySelector('.map__filters-container').before(renderCard(mockArray[0]));
+var mainPin = document.querySelector('.map__pin--main');
+var form = document.querySelector('.ad-form');
+var inputList = document.querySelectorAll('.ad-form input, ad-form select, .ad-form fieldset');
+var ENTER_KEYCODE = 13;
+
+var inputToggler = function () {
+  for (var i = 0; i < inputList.length; i++) {
+    inputList[i].disabled = !inputList[i].disabled;
+  }
+};
+
+inputToggler();
+
+var activateMap = function () {
+  mapBlock.classList.remove('map--faded');
+  form.classList.remove('ad-form--disabled');
+  inputToggler();
+  renderPinsList(mockArray);
+  document.querySelector('.map__filters-container').before(renderCard(mockArray[0]));
+};
+
+mainPin.addEventListener('mousedown', function () {
+  activateMap();
+});
+
+mainPin.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    activateMap();
+  }
+});
