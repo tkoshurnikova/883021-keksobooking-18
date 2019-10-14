@@ -159,6 +159,14 @@ var form = document.querySelector('.ad-form');
 var inputList = document.querySelectorAll('.ad-form input, ad-form select, .ad-form fieldset');
 var ENTER_KEYCODE = 13;
 
+var mainPinWidth = mainPin.offsetWidth;
+var mainPinHeight = mainPin.offsetHeight;
+var inputAddress = document.querySelector('#address');
+var inputAddressValue = (parseInt(mainPin.style.left, 10) + mainPinWidth / 2).toFixed() + ', ' + (parseInt(mainPin.style.top, 10) + mainPinHeight / 2).toFixed();
+var inputAddressActiveValue = (parseInt(mainPin.style.left, 10) + mainPinWidth / 2).toFixed() + ', ' + (parseInt(mainPin.style.top, 10) + mainPinHeight).toFixed();
+
+inputAddress.value = inputAddressValue;
+
 var inputToggler = function () {
   for (var i = 0; i < inputList.length; i++) {
     inputList[i].disabled = !inputList[i].disabled;
@@ -173,6 +181,7 @@ var activateMap = function () {
   inputToggler();
   renderPinsList(mockArray);
   document.querySelector('.map__filters-container').before(renderCard(mockArray[0]));
+  inputAddress.value = inputAddressActiveValue;
 };
 
 mainPin.addEventListener('mousedown', function () {
