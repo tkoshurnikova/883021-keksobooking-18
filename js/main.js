@@ -182,14 +182,49 @@ var activateMap = function () {
   renderPinsList(mockArray);
   document.querySelector('.map__filters-container').before(renderCard(mockArray[0]));
   inputAddress.value = inputAddressActiveValue;
+  mainPin.removeEventListener('mousedown', activateMap);
 };
 
-mainPin.addEventListener('mousedown', function () {
-  activateMap();
-});
+mainPin.addEventListener('mousedown', activateMap);
 
 mainPin.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
     activateMap();
   }
 });
+
+var roomsNumber = document.querySelector('#room_number');
+var capacity = document.querySelector('#capacity');
+
+var ROOMS_AND_CAPACITY = {
+  1: {
+    guests: [1],
+    errorText: 'Для 1 гостя',
+  },
+  2: {
+    guests: [1, 2],
+    errorText: 'Для 1 или 2 гостей',
+  },
+  3: {
+    guests: [1, 2, 3],
+    errorText: 'Для 1, 2 или 3 гостей',
+  },
+  100: {
+    guests: [0],
+    errorText: 'Не для гостей',
+  },
+};
+
+var checkCapacity = function () {
+  var roomsValue = parseInt(roomsNumber.value, 10);
+  var capacityValue = parseInt(capacity.value, 10);
+
+  if (!ROOMS_AND_CAPACITY[roomsValue].guests.includes(capacityValue)) {
+    capacity.setCustomValidity(ROOMS_AND_CAPACITY[roomsValue].errorText);
+  } else {
+    capacity.setCustomValidity('');
+  }
+};
+
+roomsNumber.addEventListener('change', checkCapacity);
+capacity.addEventListener('change', checkCapacity);
