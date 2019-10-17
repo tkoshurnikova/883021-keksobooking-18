@@ -103,8 +103,6 @@ var renderMock = function () {
 
 var mockArray = renderMock();
 
-mapBlock.classList.remove('map--faded');
-
 var renderPin = function (offer) {
   var pinElement = pinTemplate.cloneNode(true);
   pinElement.style.left = (offer.location.x - PIN_SIZE.width / 2) + 'px';
@@ -121,8 +119,6 @@ var renderPinsList = function (mock) {
   }
   pinsList.appendChild(fragment);
 };
-
-renderPinsList(mockArray);
 
 var cardTemplate = document.querySelector('#card')
     .content
@@ -158,4 +154,77 @@ var renderCard = function (offer) {
   return cardElement;
 };
 
-document.querySelector('.map__filters-container').before(renderCard(mockArray[0]));
+var mainPin = document.querySelector('.map__pin--main');
+var form = document.querySelector('.ad-form');
+var inputList = document.querySelectorAll('.ad-form input, ad-form select, .ad-form fieldset');
+var ENTER_KEYCODE = 13;
+
+var mainPinWidth = mainPin.offsetWidth;
+var mainPinHeight = mainPin.offsetHeight;
+var inputAddress = document.querySelector('#address');
+var inputAddressValue = (parseInt(mainPin.style.left, 10) + mainPinWidth / 2).toFixed() + ', ' + (parseInt(mainPin.style.top, 10) + mainPinHeight / 2).toFixed();
+var inputAddressActiveValue = (parseInt(mainPin.style.left, 10) + mainPinWidth / 2).toFixed() + ', ' + (parseInt(mainPin.style.top, 10) + mainPinHeight).toFixed();
+
+inputAddress.value = inputAddressValue;
+
+var inputToggler = function () {
+  for (var i = 0; i < inputList.length; i++) {
+    inputList[i].disabled = !inputList[i].disabled;
+  }
+};
+
+inputToggler();
+
+var activateMap = function () {
+  mapBlock.classList.remove('map--faded');
+  form.classList.remove('ad-form--disabled');
+  inputToggler();
+  renderPinsList(mockArray);
+  document.querySelector('.map__filters-container').before(renderCard(mockArray[0]));
+  inputAddress.value = inputAddressActiveValue;
+  mainPin.removeEventListener('mousedown', activateMap);
+};
+
+mainPin.addEventListener('mousedown', activateMap);
+
+mainPin.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    activateMap();
+  }
+});
+
+var roomsNumber = document.querySelector('#room_number');
+var capacity = document.querySelector('#capacity');
+
+var ROOMS_AND_CAPACITY = {
+  1: {
+    guests: [1],
+    errorText: 'Для 1 гостя',
+  },
+  2: {
+    guests: [1, 2],
+    errorText: 'Для 1 или 2 гостей',
+  },
+  3: {
+    guests: [1, 2, 3],
+    errorText: 'Для 1, 2 или 3 гостей',
+  },
+  100: {
+    guests: [0],
+    errorText: 'Не для гостей',
+  },
+};
+
+var checkCapacity = function () {
+  var roomsValue = parseInt(roomsNumber.value, 10);
+  var capacityValue = parseInt(capacity.value, 10);
+
+  if (!ROOMS_AND_CAPACITY[roomsValue].guests.includes(capacityValue)) {
+    capacity.setCustomValidity(ROOMS_AND_CAPACITY[roomsValue].errorText);
+  } else {
+    capacity.setCustomValidity('');
+  }
+};
+
+roomsNumber.addEventListener('change', checkCapacity);
+capacity.addEventListener('change', checkCapacity);
