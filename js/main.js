@@ -225,6 +225,13 @@ mainPin.addEventListener('keydown', function (evt) {
 
 var roomsNumber = document.querySelector('#room_number');
 var capacity = document.querySelector('#capacity');
+var title = document.querySelector('#title');
+var price = document.querySelector('#price');
+var type = document.querySelector('#type');
+var timeIn = document.querySelector('#timein');
+var timeOut = document.querySelector('#timeout');
+
+var submit = document.querySelector('.ad-form__submit');
 
 var ROOMS_AND_CAPACITY = {
   1: {
@@ -245,6 +252,28 @@ var ROOMS_AND_CAPACITY = {
   },
 };
 
+var TYPES_AND_PRICES = {
+  bungalo: {
+    ru: 'Бунгало',
+    price: 0
+  },
+
+  flat: {
+    ru: 'Квартира',
+    price: 1000
+  },
+
+  house: {
+    ru: 'Дом',
+    price: 5000
+  },
+
+  palace: {
+    ru: 'Дворец',
+    price: 10000
+  }
+};
+
 var checkCapacity = function () {
   var roomsValue = parseInt(roomsNumber.value, 10);
   var capacityValue = parseInt(capacity.value, 10);
@@ -256,5 +285,38 @@ var checkCapacity = function () {
   }
 };
 
-roomsNumber.addEventListener('change', checkCapacity);
-capacity.addEventListener('change', checkCapacity);
+var checkTitle = function () {
+  if (title.value.length < 30 || title.value.length > 100) {
+    title.setCustomValidity('Длина заголовка от 30 до 100 символов');
+  } else {
+    title.setCustomValidity('');
+  }
+};
+
+type.addEventListener('change', function () {
+  price.placeholder = TYPES_AND_PRICES[type.value].price;
+})
+
+var checkPrice = function () {
+  if (price.value > 1000000 || price.value < TYPES_AND_PRICES[type.value].price) {
+    price.setCustomValidity('Пожалуйста, проверьте цену: указанное значение выше максимального или ниже минимального');
+  } else {
+    price.setCustomValidity('');
+  }
+};
+
+var checkValidity = function () {
+  checkCapacity();
+  checkTitle();
+  checkPrice();
+};
+
+timeIn.addEventListener('change', function () {
+  timeOut.value = timeIn.value;
+});
+
+timeOut.addEventListener('change', function () {
+  timeIn.value = timeOut.value;
+});
+
+submit.addEventListener('click', checkValidity);
