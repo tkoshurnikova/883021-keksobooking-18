@@ -1,5 +1,8 @@
 'use strict';
 
+var ENTER_KEYCODE = 13;
+var ESC_KEYCODE = 27;
+
 var MOCK_LENGTH = 8;
 var LOCATION_X_MIN = 1;
 var BLOCK_WIDTH = document.querySelector('.map').offsetWidth;
@@ -103,27 +106,6 @@ var renderMock = function () {
 
 var mockArray = renderMock();
 
-var renderPin = function (offer) {
-  var pinElement = pinTemplate.cloneNode(true);
-  pinElement.style.left = (offer.location.x - PIN_SIZE.width / 2) + 'px';
-  pinElement.style.top = (offer.location.y - PIN_SIZE.height) + 'px';
-  pinElement.querySelector('img').src = offer.author.avatar;
-  pinElement.querySelector('img').alt = offer.offer.title;
-  return pinElement;
-};
-
-var renderPinsList = function (mock) {
-  var fragment = document.createDocumentFragment();
-  for (var i = 0; i < mock.length; i++) {
-    fragment.appendChild(renderPin(mockArray[i]));
-  }
-  pinsList.appendChild(fragment);
-};
-
-var cardTemplate = document.querySelector('#card')
-    .content
-    .querySelector('.map__card');
-
 var renderCard = function (offer) {
   var cardElement = cardTemplate.cloneNode(true);
   cardElement.querySelector('.popup__title').textContent = offer.offer.title;
@@ -151,13 +133,61 @@ var renderCard = function (offer) {
   cardElement.querySelector('.popup__photos').replaceChild(imgFragment, cardElement.querySelector('.popup__photo'));
   cardElement.querySelector('.popup__avatar').src = offer.author.avatar;
 
+  var popupCloseButton = cardElement.querySelector('.popup__close');
+  var removeCard = function () {
+    cardElement.remove(true);
+  };
+  var onPopupEscPress = function (evt) {
+    if (evt.keyCode === ESC_KEYCODE) {
+      removeCard();
+    }
+  };
+  popupCloseButton.addEventListener('click', removeCard);
+  document.addEventListener('keydown', onPopupEscPress);
+
   return cardElement;
 };
+
+var renderPin = function (mock) {
+  var pinElement = pinTemplate.cloneNode(true);
+  pinElement.style.left = (mock.location.x - PIN_SIZE.width / 2) + 'px';
+  pinElement.style.top = (mock.location.y - PIN_SIZE.height) + 'px';
+  pinElement.querySelector('img').src = mock.author.avatar;
+  pinElement.querySelector('img').alt = mock.offer.title;
+
+  var openCard = function () {
+    var popup = mapBlock.querySelector('.popup');
+    if (popup !== null) {
+      popup.remove();
+    };
+    document.querySelector('.map__filters-container').before(renderCard(mock));
+  };
+
+  pinElement.addEventListener('click', openCard);
+  pinElement.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === ENTER_KEYCODE) {
+      openCard();
+    };
+  })
+
+  return pinElement;
+};
+
+var renderPinsList = function (mock) {
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < mock.length; i++) {
+    fragment.appendChild(renderPin(mockArray[i]));
+  }
+  pinsList.appendChild(fragment);
+};
+
+var cardTemplate = document.querySelector('#card')
+    .content
+    .querySelector('.map__card');
 
 var mainPin = document.querySelector('.map__pin--main');
 var form = document.querySelector('.ad-form');
 var inputList = document.querySelectorAll('.ad-form input, ad-form select, .ad-form fieldset');
-var ENTER_KEYCODE = 13;
 
 var mainPinWidth = mainPin.offsetWidth;
 var mainPinHeight = mainPin.offsetHeight;
