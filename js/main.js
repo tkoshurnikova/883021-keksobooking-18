@@ -159,7 +159,7 @@ var renderPin = function (mock) {
     var popup = mapBlock.querySelector('.popup');
     if (popup !== null) {
       popup.remove();
-    };
+    }
     document.querySelector('.map__filters-container').before(renderCard(mock));
   };
 
@@ -167,8 +167,8 @@ var renderPin = function (mock) {
   pinElement.addEventListener('keydown', function (evt) {
     if (evt.keyCode === ENTER_KEYCODE) {
       openCard();
-    };
-  })
+    }
+  });
 
   return pinElement;
 };
@@ -295,7 +295,7 @@ var checkTitle = function () {
 
 type.addEventListener('change', function () {
   price.placeholder = TYPES_AND_PRICES[type.value].price;
-})
+});
 
 var checkPrice = function () {
   if (price.value > 1000000 || price.value < TYPES_AND_PRICES[type.value].price) {
