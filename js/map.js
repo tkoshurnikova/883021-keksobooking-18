@@ -4,7 +4,6 @@
 
 (function () {
 
-  var ENTER_KEYCODE = 13;
   var form = document.querySelector('.ad-form');
   var mainPinWidth = window.pins.mainPin.offsetWidth;
   var mainPinHeight = window.pins.mainPin.offsetHeight;
@@ -22,8 +21,8 @@
     window.pins.mapBlock.classList.remove('map--faded');
     form.classList.remove('ad-form--disabled');
     inputToggler();
-    window.pins.renderPinsList(window.card.renderMock());
-    document.querySelector('.map__filters-container').before(window.card.renderCard(window.card.renderMock()[0]));
+    window.pins.renderPinsList(window.data.renderMock());
+    document.querySelector('.map__filters-container').before(window.card.renderCard(window.data.renderMock()[0]));
     inputAddress.value = inputAddressActiveValue;
     window.pins.mainPin.removeEventListener('mousedown', activateMap);
   };
@@ -33,7 +32,7 @@
 
   window.pins.mainPin.addEventListener('mousedown', activateMap);
   window.pins.mainPin.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === ENTER_KEYCODE) {
+    if (evt.keyCode === window.data.ENTER_KEYCODE) {
       activateMap();
     }
   });

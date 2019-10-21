@@ -11,13 +11,12 @@
     renderPinsList: function (mock) {
       var fragment = document.createDocumentFragment();
       for (var i = 0; i < mock.length; i++) {
-        fragment.appendChild(renderPin(window.card.renderMock()[i]));
+        fragment.appendChild(renderPin(window.data.renderMock()[i]));
       }
       pinsList.appendChild(fragment);
     }
-  }
+  };
 
-  var ENTER_KEYCODE = 13;
   var pinsList = document.querySelector('.map__pins');
   var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
   var PIN_SIZE = {
@@ -42,7 +41,7 @@
 
     pinElement.addEventListener('click', openCard);
     pinElement.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === ENTER_KEYCODE) {
+      if (evt.keyCode === window.data.ENTER_KEYCODE) {
         openCard();
       }
     });
