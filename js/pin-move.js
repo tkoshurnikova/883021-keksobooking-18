@@ -25,7 +25,7 @@
         y: moveEvt.clientY
       };
 
-      if ((window.pins.mainPin.offsetLeft - shift.x) < window.data.MOVE_LIMITS.minX) {
+      if ((window.pins.mainPin.offsetLeft - shift.x) < (window.data.MOVE_LIMITS.minX - window.pins.mainPin.offsetWidth / 2)) {
         window.pins.mainPin.style.left = (0 - window.pins.mainPin.offsetWidth / 2) + 'px';
       } else if ((window.pins.mainPin.offsetLeft - shift.x) > (window.data.MOVE_LIMITS.maxX - window.pins.mainPin.offsetWidth / 2)) {
         window.pins.mainPin.style.left = (window.data.MOVE_LIMITS.maxX - window.pins.mainPin.offsetWidth / 2) + 'px';
