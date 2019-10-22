@@ -39,14 +39,16 @@
     },
     ENTER_KEYCODE: 13,
     ESC_KEYCODE: 27,
-    FEATURES: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner']
+    FEATURES: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
+    MOVE_LIMITS: {
+      minX: 1,
+      maxX: document.querySelector('.map').offsetWidth,
+      minY: 130,
+      maxY: 630
+    }
   };
 
   var MOCK_LENGTH = 8;
-  var LOCATION_X_MIN = 1;
-  var BLOCK_WIDTH = document.querySelector('.map').offsetWidth;
-  var LOCATION_Y_MIN = 130;
-  var LOCATION_Y_MAX = 630;
   var MIN_PRICE = 100;
   var MAX_PRICE = 2000;
   var LIVING_TYPES = ['palace', 'flat', 'house', 'bungalo'];
@@ -78,8 +80,8 @@
 
   var getLocation = function () {
     var location = {};
-    location.x = getRandomNumber(LOCATION_X_MIN, BLOCK_WIDTH);
-    location.y = getRandomNumber(LOCATION_Y_MIN, LOCATION_Y_MAX);
+    location.x = getRandomNumber(window.data.MOVE_LIMITS.minX, window.data.MOVE_LIMITS.maxX);
+    location.y = getRandomNumber(window.data.MOVE_LIMITS.minY, window.data.MOVE_LIMITS.maxY);
     return location;
   };
 

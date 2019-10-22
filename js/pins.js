@@ -8,13 +8,14 @@
     inputList: document.querySelectorAll('.ad-form input, ad-form select, .ad-form fieldset'),
     mainPin: document.querySelector('.map__pin--main'),
     mapBlock: document.querySelector('.map'),
+
     renderPinsList: function (mock) {
       var fragment = document.createDocumentFragment();
       for (var i = 0; i < mock.length; i++) {
         fragment.appendChild(renderPin(window.data.renderMock()[i]));
       }
       pinsList.appendChild(fragment);
-    }
+    },
   };
 
   var pinsList = document.querySelector('.map__pins');
