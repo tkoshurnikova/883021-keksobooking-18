@@ -22,8 +22,7 @@
     window.pins.mapBlock.classList.remove('map--faded');
     form.classList.remove('ad-form--disabled');
     inputToggler();
-    window.pins.renderPinsList(window.data.renderMock());
-    document.querySelector('.map__filters-container').before(window.card.renderCard(window.data.renderMock()[0]));
+    window.load.load('https://js.dump.academy/keksobooking/data', window.pins.renderPinsList, window.load.onError);
     window.map.inputAddress.value = window.map.inputAddressActiveValue;
     window.pins.mainPin.removeEventListener('mousedown', activateMap);
   };

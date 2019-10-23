@@ -46,6 +46,9 @@
 
       return cardElement;
     },
+    renderFirstCard: function (offer) {
+      window.card.renderCard(offer[0]);
+    },
     TYPES_AND_PRICES: {
       bungalo: {
         ru: 'Бунгало',

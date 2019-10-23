@@ -12,7 +12,7 @@
     renderPinsList: function (mock) {
       var fragment = document.createDocumentFragment();
       for (var i = 0; i < mock.length; i++) {
-        fragment.appendChild(renderPin(window.data.renderMock()[i]));
+        fragment.appendChild(renderPin(mock[i]));
       }
       pinsList.appendChild(fragment);
     },
