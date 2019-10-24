@@ -16,7 +16,9 @@
         }
       });
 
-      xhr.addEventListener('error', onError);
+      xhr.addEventListener('error', function () {
+        onError('Произошла ошибка соединения');
+      });
       xhr.open('GET', url);
       xhr.send();
     },
