@@ -12,6 +12,7 @@
   var timeIn = document.querySelector('#timein');
   var timeOut = document.querySelector('#timeout');
   var submit = document.querySelector('.ad-form__submit');
+  var form = document.querySelector('.ad-form');
 
   var ROOMS_AND_CAPACITY = {
     1: {
@@ -77,5 +78,32 @@
     timeIn.value = timeOut.value;
   });
 
+  var removeSuccessPopup = function () {
+    document.querySelector('.success').remove();
+    document.removeEventListener('click', removeSuccessPopup);
+    document.removeEventListener('keydown', onEscRemoveSuccessPopup);
+  };
+
+  var onEscRemoveSuccessPopup = function (evt) {
+    if (evt.keyCode === window.data.ESC_KEYCODE) {
+      removeSuccessPopup();
+    }
+  };
+
+  var onSuccess = function () {
+    window.map.disactivateMap();
+
+    var successPopupTemplate = document.querySelector('#success').content.querySelector('.success');
+    var successPopup = successPopupTemplate.cloneNode(true);
+    document.querySelector('main').appendChild(successPopup);
+    document.addEventListener('click', removeSuccessPopup);
+    document.addEventListener('keydown', onEscRemoveSuccessPopup);
+    // сообщение при ошибке
+  };
+
   submit.addEventListener('click', checkValidity);
+  form.addEventListener('submit', function (evt) {
+    window.upload(new FormData(form), onSuccess, window.load.onError);
+    evt.preventDefault();
+  });
 })();

@@ -15,10 +15,6 @@
           onError('Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText);
         }
       });
-
-      xhr.addEventListener('error', function () {
-        onError('Произошла ошибка соединения');
-      });
       xhr.open('GET', url);
       xhr.send();
     },
@@ -29,10 +25,21 @@
       errorBlock.querySelector('.error__message').textContent = message;
       document.querySelector('main').appendChild(errorBlock);
       var errorButton = errorBlock.querySelector('.error__button');
-      errorButton.addEventListener('click', function (evt) {
-        evt.preventDefault();
-        document.querySelector('main').lastChild.remove();
-      });
+      errorButton.addEventListener('click', removeErrorPopup);
+      document.addEventListener('click', removeErrorPopup);
+      document.addEventListener('keydown', onEscRemoveErrorPopup);
+    }
+  };
+
+  var removeErrorPopup = function () {
+    document.querySelector('.error').remove();
+    document.removeEventListener('click', removeErrorPopup);
+    document.removeEventListener('keydown', onEscRemoveErrorPopup);
+  };
+
+  var onEscRemoveErrorPopup = function (evt) {
+    if (evt.keyCode === window.data.ESC_KEYCODE) {
+      removeErrorPopup();
     }
   };
 })();

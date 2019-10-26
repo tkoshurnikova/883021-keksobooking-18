@@ -5,9 +5,24 @@
 (function () {
 
   window.map = {
+    originalPinCoords: {
+      'x': window.pins.mainPin.style.left,
+      'y': window.pins.mainPin.style.top
+    },
     inputAddress: document.querySelector('#address'),
     inputAddressValue: (parseInt(window.pins.mainPin.style.left, 10) + window.pins.mainPin.offsetWidth / 2).toFixed() + ', ' + (parseInt(window.pins.mainPin.style.top, 10) + window.pins.mainPin.offsetHeight / 2).toFixed(),
-    inputAddressActiveValue: (parseInt(window.pins.mainPin.style.left, 10) + window.pins.mainPin.offsetWidth / 2).toFixed() + ', ' + (parseInt(window.pins.mainPin.style.top, 10) + window.pins.mainPin.offsetHeight).toFixed()
+    inputAddressActiveValue: (parseInt(window.pins.mainPin.style.left, 10) + window.pins.mainPin.offsetWidth / 2).toFixed() + ', ' + (parseInt(window.pins.mainPin.style.top, 10) + window.pins.mainPin.offsetHeight).toFixed(),
+    disactivateMap: function () {
+      window.pins.mapBlock.classList.add('map--faded');
+      form.classList.add('ad-form--disabled');
+      inputToggler();
+      window.pins.removePinsList();
+      setOriginalCoordsToMainPin();
+      clearContent();
+      window.card.closeCard();
+      window.map.inputAddress.value = window.map.inputAddressValue;
+      window.pins.mainPin.addEventListener('mousedown', activateMap);
+    }
   };
 
   var form = document.querySelector('.ad-form');
@@ -36,4 +51,16 @@
       activateMap();
     }
   });
+
+  var setOriginalCoordsToMainPin = function () {
+    window.pins.mainPin.style.left = window.map.originalPinCoords.x;
+    window.pins.mainPin.style.top = window.map.originalPinCoords.y;
+  };
+
+  var clearContent = function () {
+    var inputsAndTextareas = document.querySelectorAll('.ad-form input, .ad-form textarea');
+    for (var i = 0; i < inputsAndTextareas.length; i++) {
+      inputsAndTextareas[i].value = '';
+    }
+  };
 })();

@@ -16,6 +16,13 @@
       }
       pinsList.appendChild(fragment);
     },
+    removePinsList: function () {
+      var pins = document.querySelectorAll('.map__pin');
+      for (var i = 0; i < pins.length; i++) {
+        pinsList.removeChild(pins[i]);
+      }
+      pinsList.appendChild(window.pins.mainPin);
+    }
   };
 
   var pinsList = document.querySelector('.map__pins');
@@ -33,10 +40,7 @@
     pinElement.querySelector('img').alt = mock.offer.title;
 
     var openCard = function () {
-      var popup = window.pins.mapBlock.querySelector('.popup');
-      if (popup !== null) {
-        popup.remove();
-      }
+      window.card.closeCard();
       document.querySelector('.map__filters-container').before(window.card.renderCard(mock));
     };
 
