@@ -92,13 +92,11 @@
 
   var onSuccess = function () {
     window.map.disactivateMap();
-
     var successPopupTemplate = document.querySelector('#success').content.querySelector('.success');
     var successPopup = successPopupTemplate.cloneNode(true);
     document.querySelector('main').appendChild(successPopup);
     document.addEventListener('click', removeSuccessPopup);
     document.addEventListener('keydown', onEscRemoveSuccessPopup);
-    // сообщение при ошибке
   };
 
   submit.addEventListener('click', checkValidity);
