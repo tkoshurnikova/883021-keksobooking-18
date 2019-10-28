@@ -91,7 +91,7 @@
   };
 
   var onSuccess = function () {
-    window.map.disactivateMap();
+    window.map.disactivate();
     var successPopupTemplate = document.querySelector('#success').content.querySelector('.success');
     var successPopup = successPopupTemplate.cloneNode(true);
     document.querySelector('main').appendChild(successPopup);

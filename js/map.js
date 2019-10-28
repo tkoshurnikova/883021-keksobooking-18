@@ -12,14 +12,14 @@
     inputAddress: document.querySelector('#address'),
     inputAddressValue: (parseInt(window.pins.mainPin.style.left, 10) + window.pins.mainPin.offsetWidth / 2).toFixed() + ', ' + (parseInt(window.pins.mainPin.style.top, 10) + window.pins.mainPin.offsetHeight / 2).toFixed(),
     inputAddressActiveValue: (parseInt(window.pins.mainPin.style.left, 10) + window.pins.mainPin.offsetWidth / 2).toFixed() + ', ' + (parseInt(window.pins.mainPin.style.top, 10) + window.pins.mainPin.offsetHeight).toFixed(),
-    disactivateMap: function () {
+    disactivate: function () {
       window.pins.mapBlock.classList.add('map--faded');
       form.classList.add('ad-form--disabled');
       inputToggler();
-      window.pins.removePinsList();
+      window.pins.removeList();
       setOriginalCoordsToMainPin();
       clearContent();
-      window.card.closeCard();
+      window.card.close();
       window.map.inputAddress.value = window.map.inputAddressValue;
       window.pins.mainPin.addEventListener('mousedown', activateMap);
     }
@@ -37,7 +37,7 @@
     window.pins.mapBlock.classList.remove('map--faded');
     form.classList.remove('ad-form--disabled');
     inputToggler();
-    window.load.load('https://js.dump.academy/keksobooking/data', window.pins.renderPinsList, window.load.onError);
+    window.load.data('https://js.dump.academy/keksobooking/data', window.pins.renderList, window.load.onError);
     window.map.inputAddress.value = window.map.inputAddressActiveValue;
     window.pins.mainPin.removeEventListener('mousedown', activateMap);
   };

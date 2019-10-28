@@ -5,7 +5,7 @@
 (function () {
 
   window.card = {
-    renderCard: function (offer) {
+    render: function (offer) {
       var cardElement = cardTemplate.cloneNode(true);
       cardElement.querySelector('.popup__title').textContent = offer.offer.title;
       cardElement.querySelector('.popup__text--address').textContent = offer.offer.address;
@@ -35,15 +35,15 @@
       var popupCloseButton = cardElement.querySelector('.popup__close');
       var onPopupEscPress = function (evt) {
         if (evt.keyCode === window.data.ESC_KEYCODE) {
-          window.card.closeCard();
+          window.card.close();
         }
       };
-      popupCloseButton.addEventListener('click', window.card.closeCard);
+      popupCloseButton.addEventListener('click', window.card.close);
       document.addEventListener('keydown', onPopupEscPress);
 
       return cardElement;
     },
-    closeCard: function () {
+    close: function () {
       var popup = document.querySelector('.map__card');
       if (popup !== null) {
         popup.remove();
