@@ -101,7 +101,7 @@
 
   submit.addEventListener('click', checkValidity);
   window.form.addEventListener('submit', function (evt) {
-    window.upload(new FormData(form), onSuccess, window.load.onError);
+    window.upload(new FormData(window.form), onSuccess, window.load.onError);
     evt.preventDefault();
   });
 })();
