@@ -58,9 +58,6 @@
   };
 
   var clearContent = function () {
-    var inputsAndTextareas = document.querySelectorAll('.ad-form input, .ad-form textarea');
-    for (var i = 0; i < inputsAndTextareas.length; i++) {
-      window.form.reset();
-    }
+    window.form.reset();
   };
 })();
