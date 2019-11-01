@@ -4,6 +4,7 @@
 
 (function () {
 
+  window.form = document.querySelector('.ad-form');
   var roomsNumber = document.querySelector('#room_number');
   var capacity = document.querySelector('#capacity');
   var title = document.querySelector('#title');
@@ -12,7 +13,6 @@
   var timeIn = document.querySelector('#timein');
   var timeOut = document.querySelector('#timeout');
   var submit = document.querySelector('.ad-form__submit');
-  var form = document.querySelector('.ad-form');
 
   var ROOMS_AND_CAPACITY = {
     1: {
@@ -100,7 +100,7 @@
   };
 
   submit.addEventListener('click', checkValidity);
-  form.addEventListener('submit', function (evt) {
+  window.form.addEventListener('submit', function (evt) {
     window.upload(new FormData(form), onSuccess, window.load.onError);
     evt.preventDefault();
   });

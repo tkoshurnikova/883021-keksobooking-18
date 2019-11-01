@@ -37,7 +37,7 @@
     window.pins.mapBlock.classList.remove('map--faded');
     form.classList.remove('ad-form--disabled');
     inputToggler();
-    window.load.data('https://js.dump.academy/keksobooking/data', window.pins.renderList, window.load.onError);
+    window.load.getData('https://js.dump.academy/keksobooking/data', window.pins.renderList, window.load.onError);
     window.map.inputAddress.value = window.map.inputAddressActiveValue;
     window.pins.mainPin.removeEventListener('mousedown', activateMap);
   };
@@ -60,7 +60,7 @@
   var clearContent = function () {
     var inputsAndTextareas = document.querySelectorAll('.ad-form input, .ad-form textarea');
     for (var i = 0; i < inputsAndTextareas.length; i++) {
-      inputsAndTextareas[i].value = '';
+      window.form.reset();
     }
   };
 })();
