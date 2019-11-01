@@ -5,9 +5,24 @@
 (function () {
 
   window.map = {
+    originalPinCoords: {
+      'x': window.pins.mainPin.style.left,
+      'y': window.pins.mainPin.style.top
+    },
     inputAddress: document.querySelector('#address'),
     inputAddressValue: (parseInt(window.pins.mainPin.style.left, 10) + window.pins.mainPin.offsetWidth / 2).toFixed() + ', ' + (parseInt(window.pins.mainPin.style.top, 10) + window.pins.mainPin.offsetHeight / 2).toFixed(),
-    inputAddressActiveValue: (parseInt(window.pins.mainPin.style.left, 10) + window.pins.mainPin.offsetWidth / 2).toFixed() + ', ' + (parseInt(window.pins.mainPin.style.top, 10) + window.pins.mainPin.offsetHeight).toFixed()
+    inputAddressActiveValue: (parseInt(window.pins.mainPin.style.left, 10) + window.pins.mainPin.offsetWidth / 2).toFixed() + ', ' + (parseInt(window.pins.mainPin.style.top, 10) + window.pins.mainPin.offsetHeight).toFixed(),
+    disactivate: function () {
+      window.pins.mapBlock.classList.add('map--faded');
+      form.classList.add('ad-form--disabled');
+      inputToggler();
+      window.pins.removeList();
+      setOriginalCoordsToMainPin();
+      clearContent();
+      window.card.close();
+      window.map.inputAddress.value = window.map.inputAddressValue;
+      window.pins.mainPin.addEventListener('mousedown', activateMap);
+    }
   };
 
   var form = document.querySelector('.ad-form');
@@ -22,7 +37,7 @@
     window.pins.mapBlock.classList.remove('map--faded');
     form.classList.remove('ad-form--disabled');
     inputToggler();
-    window.load.load('https://js.dump.academy/keksobooking/data', window.pins.renderPinsList, window.load.onError);
+    window.load.getData('https://js.dump.academy/keksobooking/data', window.pins.renderList, window.load.onError);
     window.map.inputAddress.value = window.map.inputAddressActiveValue;
     window.pins.mainPin.removeEventListener('mousedown', activateMap);
   };
@@ -36,4 +51,13 @@
       activateMap();
     }
   });
+
+  var setOriginalCoordsToMainPin = function () {
+    window.pins.mainPin.style.left = window.map.originalPinCoords.x;
+    window.pins.mainPin.style.top = window.map.originalPinCoords.y;
+  };
+
+  var clearContent = function () {
+    window.form.reset();
+  };
 })();

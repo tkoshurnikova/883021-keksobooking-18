@@ -4,6 +4,7 @@
 
 (function () {
 
+  window.form = document.querySelector('.ad-form');
   var roomsNumber = document.querySelector('#room_number');
   var capacity = document.querySelector('#capacity');
   var title = document.querySelector('#title');
@@ -77,5 +78,30 @@
     timeIn.value = timeOut.value;
   });
 
+  var removeSuccessPopup = function () {
+    document.querySelector('.success').remove();
+    document.removeEventListener('click', removeSuccessPopup);
+    document.removeEventListener('keydown', onEscRemoveSuccessPopup);
+  };
+
+  var onEscRemoveSuccessPopup = function (evt) {
+    if (evt.keyCode === window.data.ESC_KEYCODE) {
+      removeSuccessPopup();
+    }
+  };
+
+  var onSuccess = function () {
+    window.map.disactivate();
+    var successPopupTemplate = document.querySelector('#success').content.querySelector('.success');
+    var successPopup = successPopupTemplate.cloneNode(true);
+    document.querySelector('main').appendChild(successPopup);
+    document.addEventListener('click', removeSuccessPopup);
+    document.addEventListener('keydown', onEscRemoveSuccessPopup);
+  };
+
   submit.addEventListener('click', checkValidity);
+  window.form.addEventListener('submit', function (evt) {
+    window.upload(new FormData(window.form), onSuccess, window.load.onError);
+    evt.preventDefault();
+  });
 })();

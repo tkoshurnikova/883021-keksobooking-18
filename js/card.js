@@ -5,7 +5,7 @@
 (function () {
 
   window.card = {
-    renderCard: function (offer) {
+    render: function (offer) {
       var cardElement = cardTemplate.cloneNode(true);
       cardElement.querySelector('.popup__title').textContent = offer.offer.title;
       cardElement.querySelector('.popup__text--address').textContent = offer.offer.address;
@@ -33,18 +33,21 @@
       cardElement.querySelector('.popup__avatar').src = offer.author.avatar;
 
       var popupCloseButton = cardElement.querySelector('.popup__close');
-      var removeCard = function () {
-        cardElement.remove(true);
-      };
       var onPopupEscPress = function (evt) {
         if (evt.keyCode === window.data.ESC_KEYCODE) {
-          removeCard();
+          window.card.close();
         }
       };
-      popupCloseButton.addEventListener('click', removeCard);
+      popupCloseButton.addEventListener('click', window.card.close);
       document.addEventListener('keydown', onPopupEscPress);
 
       return cardElement;
+    },
+    close: function () {
+      var popup = document.querySelector('.map__card');
+      if (popup !== null) {
+        popup.remove();
+      }
     },
     TYPES_AND_PRICES: {
       bungalo: {

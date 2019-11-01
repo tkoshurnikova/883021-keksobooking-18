@@ -9,13 +9,20 @@
     mainPin: document.querySelector('.map__pin--main'),
     mapBlock: document.querySelector('.map'),
 
-    renderPinsList: function (mock) {
+    renderList: function (mock) {
       var fragment = document.createDocumentFragment();
       for (var i = 0; i < mock.length; i++) {
         fragment.appendChild(renderPin(mock[i]));
       }
       pinsList.appendChild(fragment);
     },
+    removeList: function () {
+      var pins = document.querySelectorAll('.map__pin');
+      for (var i = 0; i < pins.length; i++) {
+        pinsList.removeChild(pins[i]);
+      }
+      pinsList.appendChild(window.pins.mainPin);
+    }
   };
 
   var pinsList = document.querySelector('.map__pins');
@@ -33,11 +40,8 @@
     pinElement.querySelector('img').alt = mock.offer.title;
 
     var openCard = function () {
-      var popup = window.pins.mapBlock.querySelector('.popup');
-      if (popup !== null) {
-        popup.remove();
-      }
-      document.querySelector('.map__filters-container').before(window.card.renderCard(mock));
+      window.card.close();
+      document.querySelector('.map__filters-container').before(window.card.render(mock));
     };
 
     pinElement.addEventListener('click', openCard);
