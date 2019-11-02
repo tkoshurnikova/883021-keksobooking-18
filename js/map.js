@@ -37,7 +37,7 @@
     window.pins.mapBlock.classList.remove('map--faded');
     form.classList.remove('ad-form--disabled');
     inputToggler();
-    window.load.getData('https://js.dump.academy/keksobooking/data', window.pins.renderList, window.load.onError);
+    window.load.getData('https://js.dump.academy/keksobooking/data', window.filter, window.load.onError);
     window.map.inputAddress.value = window.map.inputAddressActiveValue;
     window.pins.mainPin.removeEventListener('mousedown', activateMap);
   };
