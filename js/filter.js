@@ -13,7 +13,11 @@
 
     housingType.addEventListener('change', function () {
       var sameHousingType = offers.filter(function (it) {
-        return it.offer.type === housingType.value;
+        if (housingType.value !== 'any') {
+          return it.offer.type === housingType.value;
+        } else {
+          return it;
+        }
       });
       window.pins.removeList();
       window.pins.renderList(sameHousingType.slice(0, 5));
