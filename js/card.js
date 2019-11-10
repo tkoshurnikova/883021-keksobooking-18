@@ -5,6 +5,32 @@
 (function () {
 
   window.card = {
+    TYPES_AND_PRICES: {
+      bungalo: {
+        ru: 'Бунгало',
+        price: 0
+      },
+
+      flat: {
+        ru: 'Квартира',
+        price: 1000
+      },
+
+      house: {
+        ru: 'Дом',
+        price: 5000
+      },
+
+      palace: {
+        ru: 'Дворец',
+        price: 10000
+      }
+    },
+    onPopupEscPress: function (evt) {
+      if (evt.keyCode === window.data.ESC_KEYCODE) {
+        window.card.close();
+      }
+    },
     render: function (offer) {
       var cardElement = cardTemplate.cloneNode(true);
       cardElement.querySelector('.popup__title').textContent = offer.offer.title;
@@ -33,13 +59,9 @@
       cardElement.querySelector('.popup__avatar').src = offer.author.avatar;
 
       var popupCloseButton = cardElement.querySelector('.popup__close');
-      var onPopupEscPress = function (evt) {
-        if (evt.keyCode === window.data.ESC_KEYCODE) {
-          window.card.close();
-        }
-      };
+
       popupCloseButton.addEventListener('click', window.card.close);
-      document.addEventListener('keydown', onPopupEscPress);
+      document.addEventListener('keydown', window.card.onPopupEscPress);
 
       return cardElement;
     },
@@ -48,27 +70,7 @@
       if (popup !== null) {
         popup.remove();
       }
-    },
-    TYPES_AND_PRICES: {
-      bungalo: {
-        ru: 'Бунгало',
-        price: 0
-      },
-
-      flat: {
-        ru: 'Квартира',
-        price: 1000
-      },
-
-      house: {
-        ru: 'Дом',
-        price: 5000
-      },
-
-      palace: {
-        ru: 'Дворец',
-        price: 10000
-      }
+      document.removeEventListener('keydown', window.card.onPopupEscPress);
     }
   };
 

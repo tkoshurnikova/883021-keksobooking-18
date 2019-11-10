@@ -4,7 +4,28 @@
 
 (function () {
 
+  var MOCK_LENGTH = 8;
+  var MIN_PRICE = 100;
+  var MAX_PRICE = 2000;
+  var LIVING_TYPES = ['palace', 'flat', 'house', 'bungalo'];
+  var ROOMS_MIN = 1;
+  var ROOMS_MAX = 10;
+  var GUESTS_MIN = 1;
+  var GUESTS_MAX = 10;
+  var CHECKIN_TIME = ['12:00', '13:00', '14:00'];
+  var CHECKOUT_TIME = ['12:00', '13:00', '14:00'];
+  var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+
   window.data = {
+    ENTER_KEYCODE: 13,
+    ESC_KEYCODE: 27,
+    FEATURES: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
+    MOVE_LIMITS: {
+      minX: 1,
+      maxX: document.querySelector('.map').offsetWidth,
+      minY: 130,
+      maxY: 630
+    },
     renderMock: function () {
       var mock = [];
       for (var i = 0; i <= MOCK_LENGTH - 1; i++) {
@@ -36,29 +57,8 @@
         mock.push(mockElement);
       }
       return mock;
-    },
-    ENTER_KEYCODE: 13,
-    ESC_KEYCODE: 27,
-    FEATURES: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
-    MOVE_LIMITS: {
-      minX: 1,
-      maxX: document.querySelector('.map').offsetWidth,
-      minY: 130,
-      maxY: 630
     }
   };
-
-  var MOCK_LENGTH = 8;
-  var MIN_PRICE = 100;
-  var MAX_PRICE = 2000;
-  var LIVING_TYPES = ['palace', 'flat', 'house', 'bungalo'];
-  var ROOMS_MIN = 1;
-  var ROOMS_MAX = 10;
-  var GUESTS_MIN = 1;
-  var GUESTS_MAX = 10;
-  var CHECKIN_TIME = ['12:00', '13:00', '14:00'];
-  var CHECKOUT_TIME = ['12:00', '13:00', '14:00'];
-  var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
   var getRandomNumber = function (min, max) {
     return Math.floor(Math.random() * (max - min)) + min;

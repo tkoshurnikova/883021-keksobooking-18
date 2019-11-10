@@ -4,6 +4,11 @@
 
 (function () {
 
+  var PIN_SIZE = {
+    'height': 70,
+    'width': 50
+  };
+
   window.pins = {
     inputList: document.querySelectorAll('.ad-form input, ad-form select, .ad-form fieldset'),
     mainPin: document.querySelector('.map__pin--main'),
@@ -27,10 +32,6 @@
 
   var pinsList = document.querySelector('.map__pins');
   var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-  var PIN_SIZE = {
-    'height': 70,
-    'width': 50
-  };
 
   var renderPin = function (mock) {
     var pinElement = pinTemplate.cloneNode(true);
