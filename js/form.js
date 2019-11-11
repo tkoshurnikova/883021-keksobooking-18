@@ -4,16 +4,6 @@
 
 (function () {
 
-  window.form = document.querySelector('.ad-form');
-  var roomsNumber = document.querySelector('#room_number');
-  var capacity = document.querySelector('#capacity');
-  var title = document.querySelector('#title');
-  var price = document.querySelector('#price');
-  var type = document.querySelector('#type');
-  var timeIn = document.querySelector('#timein');
-  var timeOut = document.querySelector('#timeout');
-  var submit = document.querySelector('.ad-form__submit');
-
   var ROOMS_AND_CAPACITY = {
     1: {
       guests: [1],
@@ -32,6 +22,16 @@
       errorText: 'Не для гостей',
     },
   };
+  window.form = document.querySelector('.ad-form');
+  var roomsNumber = document.querySelector('#room_number');
+  var capacity = document.querySelector('#capacity');
+  var title = document.querySelector('#title');
+  var price = document.querySelector('#price');
+  var type = document.querySelector('#type');
+  var timeIn = document.querySelector('#timein');
+  var timeOut = document.querySelector('#timeout');
+  var submitButton = document.querySelector('.ad-form__submit');
+  var resetButton = document.querySelector('.ad-form__reset');
 
   var checkCapacity = function () {
     var roomsValue = parseInt(roomsNumber.value, 10);
@@ -85,9 +85,11 @@
   };
 
   var onEscRemoveSuccessPopup = function (evt) {
-    if (evt.keyCode === window.data.ESC_KEYCODE) {
+    if (evt.keyCode === window.load.ESC_KEYCODE) {
       removeSuccessPopup();
     }
+    document.removeEventListener('click', removeSuccessPopup);
+    document.removeEventListener('keydown', onEscRemoveSuccessPopup);
   };
 
   var onSuccess = function () {
@@ -99,7 +101,8 @@
     document.addEventListener('keydown', onEscRemoveSuccessPopup);
   };
 
-  submit.addEventListener('click', checkValidity);
+  submitButton.addEventListener('click', checkValidity);
+  resetButton.addEventListener('click', window.map.disactivate);
   window.form.addEventListener('submit', function (evt) {
     window.upload(new FormData(window.form), onSuccess, window.load.onError);
     evt.preventDefault();

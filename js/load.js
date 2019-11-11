@@ -5,6 +5,8 @@
 (function () {
 
   window.load = {
+    ENTER_KEYCODE: 13,
+    ESC_KEYCODE: 27,
     getData: function (url, onSuccess, onError) {
       var xhr = new XMLHttpRequest();
       xhr.responseType = 'json';
@@ -38,7 +40,7 @@
   };
 
   var onEscRemoveErrorPopup = function (evt) {
-    if (evt.keyCode === window.data.ESC_KEYCODE) {
+    if (evt.keyCode === window.load.ESC_KEYCODE) {
       removeErrorPopup();
     }
   };
