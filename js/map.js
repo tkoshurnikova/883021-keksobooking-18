@@ -22,6 +22,7 @@
       window.card.close();
       window.map.inputAddress.value = window.map.inputAddressValue;
       window.pins.mainPin.addEventListener('mousedown', activateMap);
+      window.filter.reset();
     }
   };
 
@@ -37,7 +38,7 @@
     window.pins.mapBlock.classList.remove('map--faded');
     form.classList.remove('ad-form--disabled');
     inputToggler();
-    window.load.getData('https://js.dump.academy/keksobooking/data', window.filter, window.load.onError);
+    window.load.getData('https://js.dump.academy/keksobooking/data', window.filter.set, window.load.onError);
     window.map.inputAddress.value = window.map.inputAddressActiveValue;
     window.pins.mainPin.removeEventListener('mousedown', activateMap);
   };
@@ -47,7 +48,7 @@
 
   window.pins.mainPin.addEventListener('mousedown', activateMap);
   window.pins.mainPin.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === window.data.ENTER_KEYCODE) {
+    if (evt.keyCode === window.load.ENTER_KEYCODE) {
       activateMap();
     }
   });

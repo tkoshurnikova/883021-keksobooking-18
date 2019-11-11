@@ -85,7 +85,7 @@
   };
 
   var onEscRemoveSuccessPopup = function (evt) {
-    if (evt.keyCode === window.data.ESC_KEYCODE) {
+    if (evt.keyCode === window.load.ESC_KEYCODE) {
       removeSuccessPopup();
     }
     document.removeEventListener('click', removeSuccessPopup);

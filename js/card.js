@@ -4,6 +4,8 @@
 
 (function () {
 
+  var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+
   window.card = {
     TYPES_AND_PRICES: {
       bungalo: {
@@ -27,7 +29,7 @@
       }
     },
     onPopupEscPress: function (evt) {
-      if (evt.keyCode === window.data.ESC_KEYCODE) {
+      if (evt.keyCode === window.load.ESC_KEYCODE) {
         window.card.close();
       }
     },
@@ -41,8 +43,8 @@
       cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + offer.offer.checkin + ', выезд до ' + offer.offer.checkout;
 
       var featuresList = cardElement.querySelectorAll('.popup__feature');
-      for (var i = 0; i < window.data.FEATURES.length; i++) {
-        if (offer.offer.features.indexOf(window.data.FEATURES[i]) === -1) {
+      for (var i = 0; i < FEATURES.length; i++) {
+        if (offer.offer.features.indexOf(FEATURES[i]) === -1) {
           featuresList[i].style.display = 'none';
         }
       }
@@ -50,8 +52,9 @@
       cardElement.querySelector('.popup__description').textContent = offer.offer.description;
 
       var imgFragment = document.createDocumentFragment();
+      var photoTemplate = cardElement.querySelector('.popup__photo');
       for (var j = 0; j < offer.offer.photos.length; j++) {
-        var photoElement = cardElement.querySelector('.popup__photo').cloneNode(true);
+        var photoElement = photoTemplate.cloneNode(true);
         photoElement.src = offer.offer.photos[j];
         imgFragment.appendChild(photoElement);
       }

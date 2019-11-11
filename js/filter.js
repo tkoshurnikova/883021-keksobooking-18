@@ -13,9 +13,20 @@
   var housingGuests = document.querySelector('#housing-guests');
   var housingFeaturesFieldset = document.querySelector('#housing-features');
 
-  window.filter = function (data) {
-    offers = data;
-    updatePinsList();
+  window.filter = {
+    set: function (data) {
+      offers = data;
+      updatePinsList();
+    },
+    reset: function () {
+      housingType.value = 'any';
+      housingPrice.value = 'any';
+      housingRooms.value = 'any';
+      housingGuests.value = 'any';
+      housingFeaturesFieldset.querySelectorAll('input:checked').forEach(function (element) {
+        element.checked = false;
+      });
+    }
   };
 
   var sameHousingTypeCheck = function (it) {

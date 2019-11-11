@@ -47,7 +47,7 @@
 
     pinElement.addEventListener('click', openCard);
     pinElement.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === window.data.ENTER_KEYCODE) {
+      if (evt.keyCode === window.load.ENTER_KEYCODE) {
         openCard();
       }
     });
