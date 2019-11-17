@@ -29,54 +29,50 @@
     }
   };
 
-  var sameHousingTypeCheck = function (it) {
+  var sameHousingTypeCheck = function (item) {
     if (housingType.value !== 'any') {
-      return it.offer.type === housingType.value;
-    } else {
-      return it;
+      return item.offer.type === housingType.value;
     }
+    return item;
   };
 
-  var sameHousingPriceCheck = function (it) {
+  var sameHousingPriceCheck = function (item) {
     if (housingPrice.value !== 'any') {
       if (housingPrice.value === 'low') {
-        return it.offer.price < 10000;
+        return item.offer.price < 10000;
       } else if (housingPrice.value === 'middle') {
-        return (it.offer.price >= 10000 && it.offer.price <= 50000);
+        return (item.offer.price >= 10000 && item.offer.price <= 50000);
       } else {
-        return it.offer.price > 50000;
+        return item.offer.price > 50000;
       }
-    } else {
-      return it;
     }
+    return item;
   };
 
-  var sameHousingRoomsCheck = function (it) {
+  var sameHousingRoomsCheck = function (item) {
     if (housingRooms.value !== 'any') {
-      return it.offer.rooms === parseInt(housingRooms.value, 10);
-    } else {
-      return it;
+      return item.offer.rooms === parseInt(housingRooms.value, 10);
     }
+    return item;
   };
 
-  var sameHousingGuestsCheck = function (it) {
+  var sameHousingGuestsCheck = function (item) {
     if (housingGuests.value !== 'any') {
-      return it.offer.guests === parseInt(housingGuests.value, 10);
-    } else {
-      return it;
+      return item.offer.guests === parseInt(housingGuests.value, 10);
     }
+    return item;
   };
 
-  var sameFeatureCheck = function (it) {
+  var sameFeatureCheck = function (item) {
     var checkedFeatures = housingFeaturesFieldset.querySelectorAll('input:checked');
-    return Array.from(checkedFeatures).every(function (item) {
-      return it.offer.features.includes(item.value);
+    return Array.from(checkedFeatures).every(function (element) {
+      return item.offer.features.includes(element.value);
     });
   };
 
   var updatePinsList = function () {
-    var filteredPins = offers.filter(function (it) {
-      return sameHousingTypeCheck(it) && sameHousingPriceCheck(it) && sameHousingRoomsCheck(it) && sameHousingGuestsCheck(it) && sameFeatureCheck(it);
+    var filteredPins = offers.filter(function (item) {
+      return sameHousingTypeCheck(item) && sameHousingPriceCheck(item) && sameHousingRoomsCheck(item) && sameHousingGuestsCheck(item) && sameFeatureCheck(item);
     });
 
     window.pins.removeList();
