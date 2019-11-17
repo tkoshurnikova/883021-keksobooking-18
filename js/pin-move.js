@@ -47,7 +47,7 @@
       } else {
         window.pins.mainPin.style.top = (window.pins.mainPin.offsetTop - shift.y) + 'px';
       }
-      window.map.inputAddress.value = (parseInt(window.pins.mainPin.style.left, 10) + window.pins.mainPin.offsetWidth / 2) + ', ' + (parseInt(window.pins.mainPin.style.top, 10) + window.pins.mainPin.offsetHeight);
+      window.map.inputAddress.value = (parseInt(window.pins.mainPin.style.left, 10) + window.pins.mainPin.offsetWidth / 2).toFixed() + ', ' + (parseInt(window.pins.mainPin.style.top, 10) + window.pins.mainPin.offsetHeight);
     };
 
     var onMouseUp = function (upEvt) {

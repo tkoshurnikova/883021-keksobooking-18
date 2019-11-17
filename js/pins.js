@@ -43,6 +43,7 @@
     var openCard = function () {
       window.card.close();
       document.querySelector('.map__filters-container').before(window.card.render(mock));
+      pinElement.classList.add('map__pin--active');
     };
 
     pinElement.addEventListener('click', openCard);
