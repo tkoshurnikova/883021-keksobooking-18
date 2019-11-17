@@ -10,8 +10,8 @@
       'y': window.pins.mainPin.style.top
     },
     inputAddress: document.querySelector('#address'),
-    inputAddressValue: Math.ceil(parseInt(window.pins.mainPin.style.left, 10) + (window.pins.mainPin.offsetWidth / 2)) + ', ' + (parseInt(window.pins.mainPin.style.top, 10) + window.pins.mainPin.offsetHeight / 2).toFixed(),
-    inputAddressActiveValue: Math.ceil(parseInt(window.pins.mainPin.style.left, 10) + (window.pins.mainPin.offsetWidth / 2)) + ', ' + (parseInt(window.pins.mainPin.style.top, 10) + window.pins.mainPin.offsetHeight).toFixed(),
+    inputAddressValue: Math.floor(parseInt(window.pins.mainPin.style.left, 10) + (window.pins.mainPin.offsetWidth / 2)) + ', ' + (parseInt(window.pins.mainPin.style.top, 10) + window.pins.mainPin.offsetHeight / 2).toFixed(),
+    inputAddressActiveValue: Math.floor(parseInt(window.pins.mainPin.style.left, 10) + (window.pins.mainPin.offsetWidth / 2)) + ', ' + (parseInt(window.pins.mainPin.style.top, 10) + window.pins.mainPin.offsetHeight).toFixed(),
     disactivate: function () {
       window.pins.mapBlock.classList.add('map--faded');
       form.classList.add('ad-form--disabled');
@@ -23,6 +23,8 @@
       window.map.inputAddress.value = window.map.inputAddressValue;
       window.pins.mainPin.addEventListener('mousedown', activateMap);
       window.filter.reset();
+      window.photos.avatarPreview.src = 'img/muffin-grey.svg';
+      window.photos.livingPhotoPreviewBlock.querySelector('img').src = 'img/muffin-grey.svg';
     }
   };
 

@@ -74,7 +74,7 @@
         popup.remove();
       }
       document.removeEventListener('keydown', window.card.onPopupEscPress);
-      var activePin = document.querySelector('.map__pin--active')
+      var activePin = document.querySelector('.map__pin--active');
       if (activePin !== null) {
         activePin.classList.remove('map__pin--active');
       }
